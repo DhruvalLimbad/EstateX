@@ -1,0 +1,1765 @@
+/* =========================================================================
+   EstateFlow - site design system
+   Loaded after bootstrap.css and Site.css (see Bundle.config), so the rules
+   here intentionally win over the stock template styles.
+   ========================================================================= */
+
+:root {
+    --ef-primary: #2563eb;
+    --ef-primary-dark: #1d4ed8;
+    --ef-primary-light: #3b82f6;
+    --ef-text: #0f172a;
+    --ef-text-soft: #334155;
+    --ef-muted: #6b7280;
+    --ef-border: #e5e7eb;
+    --ef-page-bg: #f1f2f4;
+    --ef-surface: #ffffff;
+    --ef-soft: #f8fafc;
+    --ef-error: #dc2626;
+    --ef-error-bg: #fef2f2;
+    --ef-error-border: #fecaca;
+}
+
+body.ef-body {
+    margin: 0;
+    background: var(--ef-page-bg);
+    color: var(--ef-text);
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* The stock Site.css caps every input at 280px. EstateFlow lays its own
+   fields out, so opt out of that inside the shell. */
+.ef-shell input,
+.ef-shell select,
+.ef-shell textarea {
+    max-width: none;
+}
+
+.ef-shell {
+    max-width: 980px;
+    margin: 18px auto;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .05);
+}
+
+.ef-container {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.ef-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------------------------------------------------------------- navbar */
+
+.ef-nav {
+    border-bottom: 1px solid var(--ef-border);
+    background: var(--ef-surface);
+}
+
+.ef-nav-inner {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ef-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ef-primary);
+    text-decoration: none;
+    letter-spacing: -.2px;
+}
+
+.ef-brand svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+}
+
+.ef-brand:hover,
+.ef-brand:focus {
+    color: var(--ef-primary-dark);
+    text-decoration: none;
+}
+
+/* The <nav> is the flex item of .ef-nav-inner, not the <ul> inside it, so the
+   auto margins that spread brand | links | actions apart have to live here. */
+.ef-nav-menu {
+    margin-left: auto;
+}
+
+.ef-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ef-nav-link {
+    font-size: 12px;
+    color: var(--ef-muted);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.ef-nav-link:hover,
+.ef-nav-link:focus {
+    color: var(--ef-text);
+    text-decoration: none;
+}
+
+.ef-nav-link.is-active {
+    color: var(--ef-primary);
+    font-weight: 600;
+    border-bottom-color: var(--ef-primary);
+}
+
+.ef-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.ef-nav-login {
+    font-size: 12px;
+    color: var(--ef-text-soft);
+    text-decoration: none;
+}
+
+.ef-nav-login:hover,
+.ef-nav-login:focus {
+    color: var(--ef-primary);
+    text-decoration: none;
+}
+
+.ef-nav-login.is-active {
+    color: var(--ef-primary);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------- buttons */
+
+.ef-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.ef-btn:focus-visible {
+    outline: 2px solid var(--ef-primary);
+    outline-offset: 2px;
+}
+
+/* An inline SVG has no intrinsic size, so without this it stretches to fill
+   the button. Every icon-bearing button relies on this one rule. */
+.ef-btn svg {
+    width: 12px;
+    height: 12px;
+    flex: none;
+}
+
+.ef-btn-primary {
+    background: var(--ef-primary);
+    color: #fff;
+}
+
+.ef-btn-primary:hover,
+.ef-btn-primary:focus {
+    background: var(--ef-primary-dark);
+    color: #fff;
+    text-decoration: none;
+}
+
+.ef-btn-outline {
+    background: #fff;
+    color: var(--ef-text-soft);
+    border-color: var(--ef-border);
+}
+
+.ef-btn-outline:hover,
+.ef-btn-outline:focus {
+    border-color: var(--ef-primary);
+    color: var(--ef-primary);
+    text-decoration: none;
+}
+
+.ef-btn-white {
+    background: #fff;
+    color: var(--ef-primary);
+}
+
+.ef-btn-white:hover,
+.ef-btn-white:focus {
+    background: #eff6ff;
+    color: var(--ef-primary-dark);
+    text-decoration: none;
+}
+
+.ef-btn-ghost {
+    background: var(--ef-primary-light);
+    color: #fff;
+    border-color: rgba(255, 255, 255, .55);
+}
+
+.ef-btn-ghost:hover,
+.ef-btn-ghost:focus {
+    background: #60a5fa;
+    color: #fff;
+    text-decoration: none;
+}
+
+.ef-btn-block {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------ hero */
+
+.ef-hero {
+    padding: 48px 0 40px;
+    text-align: center;
+    background: var(--ef-surface);
+}
+
+.ef-hero h1 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: var(--ef-text);
+}
+
+.ef-hero-sub {
+    margin: 0 auto 26px;
+    max-width: 520px;
+    font-size: 12px;
+    color: var(--ef-muted);
+}
+
+/* ------------------------------------------------------------ search bar */
+
+.ef-search {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.ef-search-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1.15fr 1.15fr 102px;
+}
+
+.ef-search-bar {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, .05);
+    padding: 5px;
+    align-items: center;
+}
+
+.ef-search-field {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 10px;
+    border-right: 1px solid var(--ef-border);
+    min-width: 0;
+}
+
+.ef-search-icon {
+    flex: none;
+    width: 13px;
+    height: 13px;
+    color: var(--ef-muted);
+}
+
+.ef-search-input,
+.ef-search-select {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    background-color: transparent;
+    font-size: 12px;
+    color: var(--ef-text);
+    padding: 7px 0;
+    outline: none;
+    box-shadow: none;
+}
+
+.ef-search-input::placeholder {
+    color: #9ca3af;
+}
+
+.ef-search-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    color: var(--ef-text-soft);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%206l4%204%204-4%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 12px 12px;
+    padding-right: 14px;
+}
+
+.ef-search-action {
+    display: flex;
+    padding-left: 5px;
+}
+
+.ef-search-action .ef-btn {
+    width: 100%;
+    padding: 9px 12px;
+}
+
+/* validation messages sit directly under the field they belong to */
+.ef-search-errors {
+    margin-top: 6px;
+}
+
+.ef-search-error-cell {
+    padding: 0 10px;
+}
+
+.ef-search-result {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #1e3a8a;
+}
+
+/* ------------------------------------------------- explore page + filters */
+
+.ef-page-head {
+    margin-bottom: 14px;
+}
+
+.ef-page-head h1 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+    color: var(--ef-text);
+}
+
+/* Optional standfirst under a left-aligned page title. */
+.ef-page-head p {
+    margin: 6px 0 0;
+    max-width: 460px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--ef-muted);
+}
+
+/* Unlike the home-page pill, this bar labels every field and lets all three
+   stay empty - "All Types" and "Any Price" are legitimate answers. */
+.ef-filter {
+    background: var(--ef-soft);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    padding: 12px 14px 14px;
+}
+
+.ef-filter-grid {
+    display: grid;
+    grid-template-columns: 2.4fr 1fr 1fr 96px;
+    gap: 10px;
+    align-items: end;
+}
+
+.ef-filter-field {
+    min-width: 0;
+}
+
+.ef-filter-label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ef-muted);
+}
+
+/* Positioning context for the pin icon sitting inside the location box. */
+.ef-filter-control {
+    position: relative;
+}
+
+.ef-filter-icon {
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    color: var(--ef-muted);
+    pointer-events: none;
+}
+
+.ef-filter-input,
+.ef-filter-select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 7px 10px;
+    font-size: 11.5px;
+    color: var(--ef-text);
+    background-color: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 6px;
+    outline: none;
+    box-shadow: none;
+}
+
+.ef-filter-input {
+    padding-left: 26px;
+}
+
+.ef-filter-input::placeholder {
+    color: #9ca3af;
+}
+
+.ef-filter-input:focus,
+.ef-filter-select:focus {
+    border-color: var(--ef-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+.ef-filter-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    color: var(--ef-text-soft);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%206l4%204%204-4%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 12px 12px;
+    padding-right: 24px;
+}
+
+.ef-filter-action .ef-btn {
+    width: 100%;
+    padding: 8px 10px;
+}
+
+/* ------------------------------------------------------------ validation */
+
+.field-error {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--ef-error);
+}
+
+.validation-summary {
+    margin: 14px 0 0;
+    padding: 10px 14px;
+    border: 1px solid var(--ef-error-border);
+    background: var(--ef-error-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--ef-error);
+}
+
+.validation-summary ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+.validation-summary li {
+    margin: 2px 0;
+}
+
+/* --------------------------------------------------------------- section */
+
+.ef-section {
+    padding: 28px 0;
+}
+
+/* For a section that follows another one and should not double its padding. */
+.ef-section-flush {
+    padding-top: 0;
+}
+
+.ef-section-soft {
+    background: var(--ef-soft);
+    border-top: 1px solid var(--ef-border);
+    border-bottom: 1px solid var(--ef-border);
+}
+
+.ef-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.ef-section-head h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-section-head p {
+    margin: 2px 0 0;
+    font-size: 11.5px;
+    color: var(--ef-muted);
+}
+
+.ef-section-link {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ef-primary);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ef-section-link:hover,
+.ef-section-link:focus {
+    color: var(--ef-primary-dark);
+    text-decoration: none;
+}
+
+.ef-section-center {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+/* An h1 only appears here when the centred block opens a page, so it carries
+   the heavier page-title weight; the h2 keeps its in-page section size. */
+.ef-section-center h1 {
+    margin: 0 0 7px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+    color: var(--ef-text);
+}
+
+.ef-section-center h2 {
+    margin: 0 0 4px;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-section-center p {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--ef-muted);
+}
+
+/* Keeps an opening paragraph from running the full width of its column. */
+.ef-lede {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* A centred column for pages whose content should not run the full container. */
+.ef-narrow {
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------------------------- property cards  */
+
+.ef-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.ef-property-card {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ef-property-media {
+    position: relative;
+    height: 104px;
+    overflow: hidden;
+    /* stands in while the photo loads, and if it ever fails to */
+    background: #e2e8f0;
+}
+
+.ef-property-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ef-property-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, .78);
+    color: #fff;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: .2px;
+}
+
+.ef-property-body {
+    padding: 11px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
+}
+
+.ef-property-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.ef-property-title {
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-property-price {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ef-primary);
+    white-space: nowrap;
+}
+
+.ef-property-meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--ef-muted);
+}
+
+.ef-property-meta svg {
+    width: 11px;
+    height: 11px;
+    flex: none;
+}
+
+.ef-property-body .ef-btn {
+    margin-top: auto;
+}
+
+/* Shortlist toggle, pinned over the top-right corner of the photo. */
+.ef-fav {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1px solid var(--ef-border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .92);
+    color: var(--ef-text-soft);
+    cursor: pointer;
+    transition: color .15s ease, border-color .15s ease;
+}
+
+.ef-fav svg {
+    width: 12px;
+    height: 12px;
+}
+
+.ef-fav:hover,
+.ef-fav:focus {
+    color: var(--ef-primary);
+    border-color: var(--ef-primary);
+}
+
+.ef-fav[aria-pressed="true"] {
+    color: var(--ef-primary);
+    border-color: var(--ef-primary);
+}
+
+.ef-fav[aria-pressed="true"] svg {
+    fill: currentColor;
+}
+
+/* Stands in for a photograph that has not been supplied yet. */
+.ef-property-media.is-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.ef-property-media.is-empty svg {
+    width: 28px;
+    height: 28px;
+}
+
+.ef-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ef-chip {
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: var(--ef-soft);
+    border: 1px solid var(--ef-border);
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--ef-text-soft);
+}
+
+.ef-property-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: auto;
+}
+
+/* The single-button cards pull their button down with margin-top:auto; inside
+   this row that would drop the buttons out of line, so opt back out. */
+.ef-property-actions .ef-btn {
+    width: 100%;
+    margin-top: 0;
+    padding: 7px 10px;
+}
+
+/* --------------------------------------------------------- contact page  */
+
+.ef-contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+    gap: 16px;
+    align-items: start;
+}
+
+.ef-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ef-contact-card {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    padding: 12px 13px 13px;
+}
+
+.ef-contact-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.ef-contact-head svg {
+    width: 13px;
+    height: 13px;
+    flex: none;
+    color: var(--ef-primary);
+}
+
+.ef-contact-head h2 {
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-contact-note {
+    margin: 5px 0 0;
+    font-size: 10.5px;
+    color: var(--ef-muted);
+}
+
+.ef-contact-value {
+    margin: 8px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ef-primary);
+}
+
+.ef-contact-value a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ef-contact-value a:hover,
+.ef-contact-value a:focus {
+    text-decoration: underline;
+}
+
+.ef-contact-address {
+    margin: 8px 0 0;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 1.65;
+    color: var(--ef-text-soft);
+}
+
+.ef-form-card {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.ef-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 12px;
+}
+
+.ef-textarea {
+    min-height: 92px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.ef-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+}
+
+/* --------------------------------------------------------- detail page   */
+
+.ef-crumbs {
+    margin-bottom: 12px;
+}
+
+.ef-crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 10.5px;
+    color: var(--ef-muted);
+}
+
+.ef-crumbs li + li::before {
+    content: "\203A";
+    margin-right: 6px;
+    color: var(--ef-border);
+}
+
+.ef-crumbs a {
+    color: var(--ef-muted);
+    text-decoration: none;
+}
+
+.ef-crumbs a:hover,
+.ef-crumbs a:focus {
+    color: var(--ef-primary);
+    text-decoration: underline;
+}
+
+.ef-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.15fr) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+}
+
+/* ----- photo panel ----- */
+
+.ef-panel {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ef-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--ef-border);
+}
+
+.ef-panel-title {
+    margin: 0;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ef-muted);
+}
+
+.ef-panel-tools {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.ef-tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--ef-muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+.ef-tool svg {
+    width: 12px;
+    height: 12px;
+}
+
+.ef-tool:hover,
+.ef-tool:focus {
+    background: var(--ef-soft);
+    color: var(--ef-primary);
+    text-decoration: none;
+}
+
+.ef-fav-tool[aria-pressed="true"] {
+    color: var(--ef-primary);
+}
+
+.ef-fav-tool[aria-pressed="true"] svg {
+    fill: currentColor;
+}
+
+.ef-detail-media {
+    position: relative;
+    height: 232px;
+    overflow: hidden;
+    background: #e2e8f0;
+}
+
+.ef-detail-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ef-photo-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: rgba(15, 23, 42, .78);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.ef-photo-btn svg {
+    width: 11px;
+    height: 11px;
+}
+
+.ef-photo-btn:hover,
+.ef-photo-btn:focus {
+    background: rgba(15, 23, 42, .92);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ----- headline, specs ----- */
+
+.ef-detail-headline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 14px 0 2px;
+}
+
+.ef-detail-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    color: var(--ef-text);
+}
+
+.ef-detail-price-wrap {
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.ef-detail-price {
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ef-primary);
+}
+
+.ef-detail-price-note {
+    display: block;
+    margin-top: 1px;
+    font-size: 10px;
+    color: var(--ef-muted);
+}
+
+.ef-rule {
+    height: 0;
+    margin: 12px 0;
+    border: 0;
+    border-top: 1px solid var(--ef-border);
+}
+
+.ef-specs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 0;
+    padding: 10px 12px;
+    background: var(--ef-soft);
+    border: 1px solid var(--ef-border);
+    border-radius: 8px;
+}
+
+.ef-spec {
+    min-width: 0;
+}
+
+.ef-spec-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--ef-muted);
+}
+
+.ef-spec-value {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 3px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ef-text);
+}
+
+.ef-spec-value svg {
+    width: 11px;
+    height: 11px;
+    flex: none;
+    color: var(--ef-text-soft);
+}
+
+/* ----- description, amenities ----- */
+
+.ef-detail-block {
+    margin-top: 20px;
+}
+
+.ef-detail-h2 {
+    margin: 0 0 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-detail-block p {
+    margin: 0 0 9px;
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--ef-text-soft);
+}
+
+.ef-detail-block p:last-child {
+    margin-bottom: 0;
+}
+
+.ef-amenities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ef-amenities li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--ef-text-soft);
+}
+
+.ef-amenities svg {
+    width: 12px;
+    height: 12px;
+    flex: none;
+    color: var(--ef-primary);
+}
+
+/* ----- sidebar ----- */
+
+.ef-detail-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Two-tone: the header strip picks up the same grey as the muted buttons, the
+   body sits a shade lighter so white controls still read as raised. */
+.ef-side-card {
+    background: var(--ef-soft);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ef-side-head {
+    margin: 0;
+    padding: 8px 13px;
+    background: #eef0f3;
+    border-bottom: 1px solid var(--ef-border);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+    color: var(--ef-text);
+}
+
+.ef-side-body {
+    padding: 13px;
+}
+
+.ef-agent {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Rounded square, sized to the name-plus-role block beside it. */
+.ef-agent-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 7px;
+    overflow: hidden;
+    background: var(--ef-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.ef-agent-avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ef-agent-name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    color: var(--ef-text);
+}
+
+.ef-agent-role {
+    margin: 1px 0 0;
+    font-size: 10.5px;
+    color: var(--ef-muted);
+}
+
+.ef-agent-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 4px 0 0;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ef-primary);
+}
+
+.ef-agent-rating svg {
+    width: 11px;
+    height: 11px;
+    flex: none;
+}
+
+/* A plain grey panel with a blue accent bar down the left - the blue carries
+   the signal, so the fill stays neutral and the copy stays dark. */
+.ef-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border: 0;
+    border-left: 3px solid var(--ef-primary);
+    border-radius: 0 6px 6px 0;
+    background: #eef0f3;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ef-text-soft);
+}
+
+.ef-notice svg {
+    width: 13px;
+    height: 13px;
+    flex: none;
+    margin-top: 1px;
+    color: var(--ef-primary);
+}
+
+.ef-btn-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.ef-btn-stack .ef-btn {
+    width: 100%;
+}
+
+/* Awaiting a feature this build does not have yet, rather than broken. */
+.ef-btn-muted,
+.ef-btn-muted:hover {
+    background: #eef0f3;
+    color: #9aa3af;
+    border-color: #eef0f3;
+}
+
+.ef-btn:disabled {
+    cursor: not-allowed;
+}
+
+.ef-btn-soft-primary {
+    background: var(--ef-surface);
+    color: var(--ef-primary);
+    border-color: var(--ef-primary-light);
+}
+
+.ef-btn-soft-primary:hover,
+.ef-btn-soft-primary:focus {
+    background: #eff6ff;
+    color: var(--ef-primary-dark);
+    border-color: var(--ef-primary);
+    text-decoration: none;
+}
+
+.ef-wishlist[aria-pressed="true"] svg {
+    fill: currentColor;
+}
+
+/* ---------------------------------------------------------- feature cards */
+
+.ef-feature-card {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 10px;
+    padding: 18px 16px 20px;
+    text-align: center;
+}
+
+.ef-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--ef-primary);
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.ef-feature-icon svg {
+    width: 15px;
+    height: 15px;
+}
+
+.ef-feature-card h2,
+.ef-feature-card h3 {
+    margin: 0 0 5px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-feature-card p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--ef-muted);
+    line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------- cta */
+
+.ef-cta {
+    background: var(--ef-primary);
+    color: #fff;
+    text-align: center;
+    padding: 36px 24px 38px;
+}
+
+.ef-cta h2 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.ef-cta p {
+    margin: 0 0 18px;
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, .85);
+}
+
+.ef-cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.ef-footer {
+    background: var(--ef-surface);
+    border-top: 1px solid var(--ef-border);
+    padding: 20px 0 22px;
+}
+
+/* Brand on the left, the whole link set in one row on the right. */
+.ef-footer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    flex-wrap: wrap;
+}
+
+.ef-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ef-primary);
+}
+
+.ef-footer-brand svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+}
+
+.ef-footer-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ef-footer-links li {
+    margin: 0;
+}
+
+.ef-footer-links a {
+    font-size: 10.5px;
+    color: var(--ef-muted);
+    text-decoration: underline;
+}
+
+.ef-footer-links a:hover,
+.ef-footer-links a:focus {
+    color: var(--ef-primary);
+}
+
+.ef-footer-links a.is-active {
+    color: var(--ef-text);
+    font-weight: 600;
+}
+
+.ef-footer-copy {
+    margin: 12px 0 0;
+    font-size: 10.5px;
+    color: var(--ef-muted);
+}
+
+/* ------------------------------------------------------------ auth pages */
+
+/* Photograph down one side, form down the other. The block runs wider than
+   .ef-container, but keeps a gutter so it never touches the shell edges. */
+.ef-auth-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 490px;
+    margin: 14px 24px;
+}
+
+.ef-auth-visual {
+    position: relative;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+.ef-auth-visual img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Scrim, so the headline holds its contrast whatever the photograph is. */
+.ef-auth-visual::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, .88), rgba(15, 23, 42, .15) 55%, rgba(15, 23, 42, 0));
+}
+
+.ef-auth-visual-copy {
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    bottom: 24px;
+    z-index: 1;
+}
+
+.ef-auth-visual-copy h2 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    color: #fff;
+}
+
+.ef-auth-visual-copy p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, .85);
+}
+
+.ef-auth-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 26px;
+    background: var(--ef-surface);
+}
+
+.ef-auth-form {
+    width: 100%;
+    max-width: 290px;
+}
+
+.ef-auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    color: var(--ef-primary);
+}
+
+.ef-auth-brand svg {
+    width: 14px;
+    height: 14px;
+    flex: none;
+}
+
+.ef-auth-head {
+    margin-bottom: 18px;
+}
+
+.ef-auth-head h1 {
+    margin: 0 0 3px;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+    color: var(--ef-text);
+}
+
+.ef-auth-head p {
+    margin: 0;
+    font-size: 11px;
+    color: var(--ef-muted);
+}
+
+/* Field label on the left, a helper link on the right of the same line. */
+.ef-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.ef-label-link {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ef-primary);
+    text-decoration: none;
+}
+
+.ef-label-link:hover,
+.ef-label-link:focus {
+    text-decoration: underline;
+}
+
+.ef-auth-blurb {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ef-border);
+    text-align: center;
+}
+
+.ef-auth-blurb p {
+    margin: 0;
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: var(--ef-muted);
+}
+
+.ef-auth-blurb .ef-auth-blurb-title {
+    margin: 0 0 3px;
+    font-weight: 700;
+    color: var(--ef-text);
+}
+
+.ef-field {
+    margin-bottom: 14px;
+}
+
+.ef-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ef-text-soft);
+}
+
+.ef-input {
+    display: block;
+    width: 100%;
+    padding: 8px 11px;
+    font-size: 12px;
+    color: var(--ef-text);
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-border);
+    border-radius: 7px;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.ef-input::placeholder {
+    color: #9ca3af;
+}
+
+.ef-input:focus {
+    border-color: var(--ef-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+
+.ef-auth-actions {
+    margin-top: 18px;
+}
+
+.ef-auth-foot {
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--ef-muted);
+}
+
+.ef-auth-foot a {
+    color: var(--ef-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.ef-auth-foot a:hover,
+.ef-auth-foot a:focus {
+    text-decoration: underline;
+}
+
+.ef-alert-success {
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border: 1px solid #bbf7d0;
+    background: #f0fdf4;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #166534;
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media screen and (max-width: 860px) {
+    .ef-nav-inner {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .ef-nav-menu {
+        order: 3;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .ef-nav-links {
+        flex-wrap: wrap;
+    }
+
+    .ef-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-specs {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ef-contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacked, the photo becomes a banner above the form. */
+    .ef-auth-split {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .ef-auth-visual {
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .ef-search-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-search-field {
+        border-right: 0;
+        border-bottom: 1px solid var(--ef-border);
+    }
+
+    .ef-search-action {
+        padding: 6px 10px 2px;
+    }
+
+    .ef-search-error-cell:empty {
+        display: none;
+    }
+
+    .ef-detail-headline {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .ef-detail-price-wrap {
+        text-align: left;
+    }
+
+    .ef-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-amenities {
+        grid-template-columns: 1fr;
+    }
+
+    .ef-form-grid {
+        grid-template-columns: 1fr;
+    }
+}

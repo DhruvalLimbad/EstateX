@@ -1,0 +1,325 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.Master.cs" Inherits="EstateX.AdminMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - EstateX Admin</title>
+
+    <!-- ContentPlaceHolder for page-specific styles & scripts -->
+    <asp:ContentPlaceHolder ID="AdminHead" runat="server"></asp:ContentPlaceHolder>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; }
+
+        .admin-layout-shell {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* White Left Sidebar */
+        .admin-sidebar {
+            width: 240px;
+            background: #ffffff;
+            border-right: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand-box {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 10px;
+        }
+
+        .brand-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo-text {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .sidebar-nav-list {
+            list-style: none;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .sidebar-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+
+        .sidebar-link.active {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+
+        .sidebar-link svg {
+            width: 18px !important;
+            height: 18px !important;
+            min-width: 18px;
+            min-height: 18px;
+            stroke: currentColor;
+            fill: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sidebar-bottom-action {
+            padding: 16px 14px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        /* Main Workspace Container */
+        .admin-main-viewport {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background-color: #ffffff;
+        }
+
+        /* Top Bar */
+        .admin-topbar {
+            height: 70px;
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+        }
+
+        .topbar-page-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .topbar-right-profile {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .admin-user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar-circle {
+            width: 32px;
+            height: 32px;
+            background-color: #e2e8f0;
+            color: #475569;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-profile-name {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .admin-top-logout-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #64748b;
+            cursor: pointer;
+            text-decoration: none;
+            padding-left: 10px;
+            border-left: 1px solid #e2e8f0;
+        }
+
+        .admin-top-logout-btn:hover {
+            color: #dc2626;
+        }
+
+        .admin-view-area {
+            padding: 32px;
+            background-color: #ffffff;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <form id="adminForm" runat="server">
+        <div class="admin-layout-shell">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-brand-box">
+                    <div class="brand-logo-icon">EX</div>
+                    <div class="brand-logo-text">EstateX</div>
+                </div>
+
+                <ul class="sidebar-nav-list">
+                    <!-- Dashboard -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/AdminDashboard.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("AdminDashboard") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="9"></rect>
+                                <rect x="14" y="3" width="7" height="5"></rect>
+                                <rect x="14" y="12" width="7" height="9"></rect>
+                                <rect x="3" y="16" width="7" height="5"></rect>
+                            </svg>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <!-- Manage Properties -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/ManageProperties.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("ManageProperties") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            <span>Manage Properties</span>
+                        </a>
+                    </li>
+
+                    <!-- Manage Users -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/ManageUsers.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("ManageUsers") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>Manage Users</span>
+                        </a>
+                    </li>
+
+                    <!-- Visit Requests -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/VisitRequests.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("VisitRequests") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <path d="M9 16l2 2 4-4"></path>
+                            </svg>
+                            <span>Visit Requests</span>
+                        </a>
+                    </li>
+
+                    <!-- Categories -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/Categories.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("Categories") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            <span>Categories</span>
+                        </a>
+                    </li>
+
+                    <!-- Admin Profile -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/AdminProfile.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("AdminProfile") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span>Admin Profile</span>
+                        </a>
+                    </li>
+
+                    <!-- Settings -->
+                    <li>
+                        <a href='<%= ResolveUrl("~/Settings.aspx") %>' class='sidebar-link <%= Request.FilePath.Contains("Settings") ? "active" : "" %>'>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="sidebar-bottom-action">
+                    <asp:LinkButton ID="btnSidebarLogout" runat="server" OnClick="btnLogout_Click" CssClass="sidebar-link" CausesValidation="false">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>Logout</span>
+                    </asp:LinkButton>
+                </div>
+            </aside>
+
+            <!-- Main Panel -->
+            <div class="admin-main-viewport">
+                <!-- Top Navbar -->
+                <header class="admin-topbar">
+                    <div class="topbar-page-name"><%: Page.Title %></div>
+
+                    <div class="topbar-right-profile">
+                        <div class="admin-user-profile">
+                            <div class="admin-avatar-circle">BA</div>
+                            <span class="admin-profile-name">Bhargav Admin</span>
+                        </div>
+                        <asp:LinkButton ID="btnTopLogout" runat="server" OnClick="btnLogout_Click" CssClass="admin-top-logout-btn" CausesValidation="false" title="Logout">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                        </asp:LinkButton>
+                    </div>
+                </header>
+
+                <!-- Dynamic Content Area -->
+                <main class="admin-view-area">
+                    <asp:ContentPlaceHolder ID="AdminMainContent" runat="server"></asp:ContentPlaceHolder>
+                </main>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
